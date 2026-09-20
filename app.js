@@ -148,5 +148,29 @@ function showToast(msg, type = "success") {
     }, 4000);
 }
 
+// Setup Guide Modal Logic
+const guideModal = document.getElementById('guideModal');
+const guideBox = document.getElementById('guideBox');
+const btnGuide = document.getElementById('btnGuide');
+const btnCloseGuide = document.getElementById('btnCloseGuide');
+
+if (btnGuide && btnCloseGuide) {
+    btnGuide.addEventListener('click', () => {
+        guideModal.classList.remove('hidden');
+        setTimeout(() => {
+            guideModal.classList.remove('opacity-0');
+            guideBox.classList.remove('scale-95');
+        }, 10);
+    });
+
+    btnCloseGuide.addEventListener('click', () => {
+        guideModal.classList.add('opacity-0');
+        guideBox.classList.add('scale-95');
+        setTimeout(() => {
+            guideModal.classList.add('hidden');
+        }, 300);
+    });
+}
+
 // Boot
 init();

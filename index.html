@@ -43,7 +43,7 @@
             <h1 class="text-2xl font-black tracking-tight text-white">DirectMail <span class="text-gray-400 font-medium text-lg">Pro</span></h1>
         </div>
         <div class="flex gap-4 items-center">
-            <a href="https://myaccount.google.com/apppasswords" target="_blank" class="text-sm text-gray-400 hover:text-white transition"><i class="fa-solid fa-circle-question mr-1"></i> Get Gmail App Password</a>
+            <button id="btnGuide" class="text-sm bg-gray-800 hover:bg-gray-700 border border-gray-700 text-white px-4 py-2 rounded-lg transition shadow-sm font-medium"><i class="fa-solid fa-book-open mr-2 text-brand"></i> Setup Guide</button>
         </div>
     </header>
 
@@ -151,6 +151,37 @@
             </div>
         </div>
     </main>
+
+    <!-- Setup Guide Modal -->
+    <div id="guideModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-gray-900 border border-gray-700 rounded-2xl w-full max-w-xl shadow-2xl transform scale-95 transition-transform duration-300 flex flex-col max-h-[90vh]" id="guideBox">
+            <div class="p-6 border-b border-gray-800 flex justify-between items-center">
+                <h2 class="text-xl font-bold text-white"><i class="fa-solid fa-circle-info text-brand mr-2"></i> SMTP Setup Guide</h2>
+                <button id="btnCloseGuide" class="text-gray-400 hover:text-white transition"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            <div class="p-6 overflow-y-auto text-gray-300 space-y-6 text-sm custom-scrollbar">
+                <div>
+                    <h3 class="text-white font-bold mb-2">1. SMTP Host</h3>
+                    <p>Leave this exactly as <code class="bg-gray-800 text-brand px-2 py-1 rounded border border-gray-700">smtp.gmail.com</code> (assuming you use Gmail). This tells the app which server to connect to.</p>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold mb-2">2. Sender Email</h3>
+                    <p>Type your actual Gmail address here (e.g., <code class="bg-gray-800 text-brand px-2 py-1 rounded border border-gray-700">you@gmail.com</code>). This is the exact address your clients will see the email coming from.</p>
+                </div>
+                <div class="bg-gray-800/50 p-5 rounded-xl border border-gray-700">
+                    <h3 class="text-white font-bold mb-3 text-base">3. App Password <span class="text-xs font-normal text-gray-400 ml-2">(Most Important Step)</span></h3>
+                    <p class="mb-4 text-gray-400">Because of Google's strict security, you cannot use your normal Gmail password. You must generate a special 16-letter "App Password" just for this tool.</p>
+                    <ol class="list-decimal pl-5 space-y-3 text-gray-300">
+                        <li><strong>Turn on 2-Step Verification:</strong> Google requires this. Go to your Google Account Security settings and enable it.</li>
+                        <li><strong>Go to App Passwords:</strong> Click <a href="https://myaccount.google.com/apppasswords" target="_blank" class="text-brand hover:text-indigo-400 underline font-bold transition">this direct link</a> to go to the Google App Passwords page.</li>
+                        <li><strong>Create Password:</strong> It will ask for an "App name". Type <strong>Email Sender</strong> and click <strong>Create</strong>.</li>
+                        <li><strong>Copy Code:</strong> Google will pop up a yellow box with a 16-letter password (it looks like <code class="bg-gray-900 text-green-400 px-2 py-1 rounded tracking-widest font-mono text-xs border border-gray-700">abcd efgh ijkl mnop</code>).</li>
+                        <li><strong>Paste in App:</strong> Copy that code and paste it into the <strong>App Password</strong> box in this app!</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Notification Toast -->
     <div id="toast" class="fixed bottom-5 right-5 bg-gray-800 text-white px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 transform translate-y-24 opacity-0 transition-all duration-300 z-50 border border-gray-700">
