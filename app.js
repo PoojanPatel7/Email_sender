@@ -1,5 +1,130 @@
 // Pre-defined Email Templates
 const templates = {
+    zenith_dark: {
+        subject: "Elevate Your Brand with ZENITH",
+        body: `<div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 650px; margin: auto; background: #0a0a0a; border-radius: 16px; overflow: hidden; color: #e5e5e5; border: 1px solid #222;">
+    <!-- Header -->
+    <div style="padding: 50px 30px; text-align: center; border-bottom: 1px solid #222; background: #000 url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2000&auto=format&fit=crop') center/cover; position: relative;">
+        <div style="position: absolute; top:0;left:0;right:0;bottom:0; background: rgba(0,0,0,0.7);"></div>
+        <div style="position: relative; z-index: 1;">
+            <h1 style="color: #ffffff; margin: 0; font-size: 40px; font-weight: 900; letter-spacing: 6px;">ZENITH</h1>
+            <p style="color: #3b82f6; margin: 12px 0 0 0; font-size: 13px; text-transform: uppercase; font-weight: bold; letter-spacing: 3px;">Next-Gen Digital Solutions</p>
+        </div>
+    </div>
+    <!-- Body -->
+    <div style="padding: 40px 35px;">
+        <p style="font-size: 18px; color: #ffffff; margin-top: 0;">Hi,</p>
+        <p style="line-height: 1.8; color: #d4d4d8;">I'm reaching out from <strong>ZENITH</strong>. We are a premier digital agency specializing in modern, high-performance website development and cinematic video editing.</p>
+        
+        <!-- Cards -->
+        <div style="margin: 35px 0;">
+            <div style="background: #111111; border: 1px solid #222222; padding: 25px; border-radius: 12px; margin-bottom: 15px; border-left: 4px solid #3b82f6;">
+                <h3 style="margin: 0 0 10px 0; color: #ffffff;">🌐 Web Development</h3>
+                <p style="margin: 0; color: #a1a1aa; font-size: 14px; line-height: 1.6;">Modern, ultra-fast, and responsive websites that convert visitors into customers.</p>
+            </div>
+            <div style="background: #111111; border: 1px solid #222222; padding: 25px; border-radius: 12px; border-left: 4px solid #8b5cf6;">
+                <h3 style="margin: 0 0 10px 0; color: #ffffff;">🎬 Video Editing</h3>
+                <p style="margin: 0; color: #a1a1aa; font-size: 14px; line-height: 1.6;">Engaging promotional videos, social media reels, and cinematic ads that elevate your brand.</p>
+            </div>
+        </div>
+
+        <p style="line-height: 1.8; color: #d4d4d8;">To see what we can do for you, check out our latest demo platform:</p>
+        
+        <div style="text-align: center; margin: 45px 0;">
+            <a href="https://academy-web-mu.vercel.app/" style="background: linear-gradient(135deg, #3b82f6, #6366f1); color: #ffffff; padding: 18px 40px; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 16px; display: inline-block; box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4); text-transform: uppercase; letter-spacing: 1px;">Explore Live Demo</a>
+        </div>
+        
+        <p style="line-height: 1.8; color: #d4d4d8;">We'd love to learn more about your business. Reply to this email and let's build something extraordinary together.</p>
+    </div>
+    <!-- Footer -->
+    <div style="background: #050505; padding: 30px; text-align: center; border-top: 1px solid #222;">
+        <p style="margin: 0; color: #71717a; font-size: 14px;">&copy; 2026 ZENITH Agency. All rights reserved.</p>
+        <p style="margin: 10px 0 0 0; color: #52525b; font-size: 12px;">You are receiving this email because we identified you as an industry leader.</p>
+    </div>
+</div>`
+    },
+    ecommerce: {
+        subject: "Your Order Confirmation #ORD-8439201",
+        body: `<div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 40px 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+    <div style="text-align: center; padding-bottom: 30px; border-bottom: 1px solid #e5e7eb;">
+        <div style="width: 60px; height: 60px; background: #10b981; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; margin: 0 auto 20px auto; line-height: 60px;">✓</div>
+        <h1 style="color: #111827; margin: 0; font-size: 26px;">Thank you for your order!</h1>
+        <p style="color: #6b7280; margin: 12px 0 0 0; font-size: 14px;">Order #ORD-8439201 &bull; Placed on Sep 20, 2026</p>
+    </div>
+    
+    <div style="padding: 30px 0;">
+        <p style="color: #374151; font-weight: bold; margin-bottom: 20px; font-size: 16px;">Order Summary</p>
+        <table width="100%" style="border-collapse: collapse;">
+            <tr>
+                <td style="padding: 20px 0; border-bottom: 1px solid #f3f4f6;">
+                    <span style="color: #111827; font-weight: bold; display: block; margin-bottom: 4px;">Premium Wireless Headphones</span>
+                    <span style="color: #6b7280; font-size: 13px;">Color: Matte Black | Qty: 1</span>
+                </td>
+                <td style="padding: 20px 0; border-bottom: 1px solid #f3f4f6; text-align: right; color: #111827; font-weight: bold;">$299.00</td>
+            </tr>
+            <tr>
+                <td style="padding: 20px 0; border-bottom: 1px solid #f3f4f6;">
+                    <span style="color: #111827; font-weight: bold; display: block; margin-bottom: 4px;">Extended Warranty (2 Years)</span>
+                    <span style="color: #6b7280; font-size: 13px;">Qty: 1</span>
+                </td>
+                <td style="padding: 20px 0; border-bottom: 1px solid #f3f4f6; text-align: right; color: #111827; font-weight: bold;">$45.00</td>
+            </tr>
+        </table>
+        
+        <table width="100%" style="margin-top: 25px; font-size: 15px;">
+            <tr><td style="color: #6b7280; padding: 6px 0;">Subtotal</td><td style="text-align: right; color: #374151;">$344.00</td></tr>
+            <tr><td style="color: #6b7280; padding: 6px 0;">Shipping</td><td style="text-align: right; color: #10b981; font-weight: bold;">Free</td></tr>
+            <tr><td style="color: #6b7280; padding: 6px 0;">Tax</td><td style="text-align: right; color: #374151;">$24.08</td></tr>
+            <tr><td style="font-weight: bold; color: #111827; padding: 20px 0; font-size: 20px; border-top: 1px solid #e5e7eb; margin-top: 15px;">Total</td><td style="text-align: right; font-weight: bold; color: #111827; font-size: 20px; border-top: 1px solid #e5e7eb; margin-top: 15px;">$368.08</td></tr>
+        </table>
+    </div>
+    
+    <div style="background: #f9fafb; padding: 25px; border-radius: 8px; text-align: center;">
+        <p style="margin: 0 0 20px 0; color: #4b5563; font-size: 15px;">We'll send you a shipping confirmation email as soon as your order ships.</p>
+        <a href="#" style="display: inline-block; background: #111827; color: #ffffff; text-decoration: none; padding: 14px 30px; border-radius: 6px; font-weight: bold; font-size: 15px;">View Order Status</a>
+    </div>
+</div>`
+    },
+    newsletter: {
+        subject: "What's new this month? 🚀",
+        body: `<div style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; max-width: 600px; margin: auto; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.05);">
+    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1200&q=80" alt="Tech News" style="width: 100%; height: 260px; object-fit: cover; display: block;" />
+    
+    <div style="padding: 40px 35px;">
+        <span style="background: #ecfdf5; color: #059669; padding: 6px 14px; border-radius: 50px; font-size: 12px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">Monthly Update</span>
+        
+        <h2 style="color: #0f172a; font-size: 32px; margin: 25px 0 15px 0; letter-spacing: -0.5px;">What's new this month?</h2>
+        
+        <p style="color: #475569; font-size: 16px; line-height: 1.7; margin-bottom: 35px;">We've been hard at work building new features to help you succeed. Check out our latest product updates, community highlights, and tips for getting the most out of your experience.</p>
+        
+        <table width="100%" cellpadding="0" cellspacing="0" style="margin: 30px 0;">
+            <tr>
+                <td width="65" valign="top"><div style="width: 50px; height: 50px; background: #eff6ff; border-radius: 12px; text-align: center; line-height: 50px; font-size: 24px;">🚀</div></td>
+                <td>
+                    <h4 style="margin: 0 0 8px 0; color: #0f172a; font-size: 18px;">Lightning Fast Loading</h4>
+                    <p style="margin: 0; color: #64748b; font-size: 15px; line-height: 1.6;">We optimized our core engine. Things are now 3x faster across the board.</p>
+                </td>
+            </tr>
+            <tr><td colspan="2" height="30"></td></tr>
+            <tr>
+                <td width="65" valign="top"><div style="width: 50px; height: 50px; background: #fef2f2; border-radius: 12px; text-align: center; line-height: 50px; font-size: 24px;">🎨</div></td>
+                <td>
+                    <h4 style="margin: 0 0 8px 0; color: #0f172a; font-size: 18px;">New Design Editor</h4>
+                    <p style="margin: 0; color: #64748b; font-size: 15px; line-height: 1.6;">Create stunning layouts with our totally revamped drag-and-drop tool.</p>
+                </td>
+            </tr>
+        </table>
+
+        <div style="text-align: center; margin-top: 45px;">
+            <a href="#" style="display: inline-block; background: #0f172a; color: #ffffff; text-decoration: none; padding: 16px 35px; border-radius: 8px; font-weight: bold; font-size: 16px;">Read the Full Changelog</a>
+        </div>
+    </div>
+    
+    <div style="background: #f8fafc; padding: 30px; text-align: center; border-top: 1px solid #e2e8f0;">
+        <p style="margin: 0; color: #94a3b8; font-size: 14px; line-height: 1.6;">123 Business Rd, Tech City, NY 10010<br>Don't want these emails? <a href="#" style="color: #64748b; text-decoration: underline;">Unsubscribe here</a></p>
+    </div>
+</div>`
+    },
     zenith_pitch: {
         subject: "Transform Your Digital Presence with ZENITH",
         body: `<div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; background: #ffffff; border: 1px solid #eaeaea; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
