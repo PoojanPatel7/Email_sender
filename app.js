@@ -1,7 +1,3 @@
-// Configuration (Hardcoded for simplicity so user only enters Service ID in UI)
-const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID'; // Replace this directly in code
-const EMAILJS_PUBLIC_KEY = 'YOUR_PUBLIC_KEY';   // Replace this directly in code
-
 // Pre-defined Email Templates
 const templates = {
     zenith_dark: {
@@ -300,6 +296,8 @@ const btnSaveKeys = document.getElementById('btnSaveKeys');
 const btnDeleteKeys = document.getElementById('btnDeleteKeys');
 
 const keyService = document.getElementById('key_service');
+const keyTemplate = document.getElementById('key_template');
+const keyPublic = document.getElementById('key_public');
 
 const toast = document.getElementById('toast');
 const toastMessage = document.getElementById('toastMessage');
@@ -307,7 +305,9 @@ const toastIcon = document.getElementById('toastIcon');
 
 // State
 let emailjsConfig = {
-    serviceId: ''
+    serviceId: '',
+    templateId: '',
+    publicKey: ''
 };
 
 // Initialize App
@@ -318,11 +318,11 @@ function init() {
     loadTemplate(templateSelector.value);
     
     // Check if settings are missing, prompt user
-    if (!emailjsConfig.serviceId) {
+    if (!emailjsConfig.serviceId || !emailjsConfig.templateId || !emailjsConfig.publicKey) {
         setTimeout(openSettings, 500);
-    } else if(EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY') {
-        // Init EmailJS (only if they actually replaced the default text)
-        emailjs.init(EMAILJS_PUBLIC_KEY);
+    } else {
+        // Init EmailJS
+        emailjs.init(emailjsConfig.publicKey);
     }
 }
 
@@ -370,6 +370,8 @@ function openSettings() {
     
     // Populate existing
     keyService.value = emailjsConfig.serviceId;
+    keyTemplate.value = emailjsConfig.templateId;
+    keyPublic.value = emailjsConfig.publicKey;
     
     if(emailjsConfig.serviceId) {
         btnDeleteKeys.classList.remove('hidden');
@@ -398,30 +400,31 @@ function loadSettings() {
 
 function saveSettings() {
     const s = keyService.value.trim();
+    const t = keyTemplate.value.trim();
+    const p = keyPublic.value.trim();
     
-    if(!s) {
-        showToast("Please enter your Service ID!", "error");
+    if(!s || !t || !p) {
+        showToast("Please fill all key fields!", "error");
         return;
     }
     
-    emailjsConfig = { serviceId: s };
+    emailjsConfig = { serviceId: s, templateId: t, publicKey: p };
     localStorage.setItem('zenith_email_keys', JSON.stringify(emailjsConfig));
-    
-    if(EMAILJS_PUBLIC_KEY !== 'YOUR_PUBLIC_KEY') {
-        emailjs.init(EMAILJS_PUBLIC_KEY);
-    }
+    emailjs.init(emailjsConfig.publicKey);
     
     closeSettings();
-    showToast("Service ID Saved Successfully!");
+    showToast("API Keys Saved Successfully!");
 }
 
 function deleteSettings() {
-    if(confirm("Are you sure you want to delete your saved Service ID?")) {
+    if(confirm("Are you sure you want to delete your saved API Keys?")) {
         localStorage.removeItem('zenith_email_keys');
-        emailjsConfig = { serviceId: '' };
+        emailjsConfig = { serviceId: '', templateId: '', publicKey: '' };
         keyService.value = '';
+        keyTemplate.value = '';
+        keyPublic.value = '';
         btnDeleteKeys.classList.add('hidden');
-        showToast("Service ID Deleted!", "error");
+        showToast("Keys Deleted!", "error");
     }
 }
 
@@ -429,14 +432,9 @@ function deleteSettings() {
 function sendEmail(e) {
     e.preventDefault();
     
-    if (!emailjsConfig.serviceId) {
+    if (!emailjsConfig.serviceId || !emailjsConfig.templateId || !emailjsConfig.publicKey) {
         openSettings();
-        showToast("Please configure your Service ID first!", "error");
-        return;
-    }
-    
-    if (EMAILJS_TEMPLATE_ID === 'YOUR_TEMPLATE_ID' || EMAILJS_PUBLIC_KEY === 'YOUR_PUBLIC_KEY') {
-        showToast("App Setup Incomplete: Update app.js with your Template ID & Public Key.", "error");
+        showToast("Please configure your EmailJS keys first!", "error");
         return;
     }
 
@@ -457,7 +455,7 @@ function sendEmail(e) {
         message: emailBodyInput.value 
     };
 
-    emailjs.send(emailjsConfig.serviceId, EMAILJS_TEMPLATE_ID, templateParams)
+    emailjs.send(emailjsConfig.serviceId, emailjsConfig.templateId, templateParams)
         .then((response) => {
             console.log('SUCCESS!', response.status, response.text);
             showToast("Email sent successfully!");
