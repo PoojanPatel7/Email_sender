@@ -63,6 +63,12 @@
                         <input type="email" id="to_email" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand focus:border-brand outline-none transition" placeholder="client@example.com">
                     </div>
 
+                    <!-- Brand Logo URL -->
+                    <div>
+                        <label class="block text-sm font-bold text-gray-600 mb-1">Brand Logo URL <span class="text-xs font-normal text-gray-400">(Auto-applied to templates)</span></label>
+                        <input type="url" id="logo_url" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand focus:border-brand outline-none transition" value="https://via.placeholder.com/250x80/000000/FFFFFF?text=ZENITH+LOGO" placeholder="https://your-domain.com/logo.png">
+                    </div>
+
                     <!-- Subject -->
                     <div>
                         <label class="block text-sm font-bold text-gray-600 mb-1">Subject</label>
@@ -77,6 +83,8 @@
                             <option value="zenith_pitch">🔥 ZENITH Pitch (Light)</option>
                             <option value="newsletter">📰 Modern Newsletter</option>
                             <option value="ecommerce">🛒 E-Commerce Receipt</option>
+                            <option value="webinar">📅 Webinar / Event Invite</option>
+                            <option value="password_reset">🔐 Password Reset</option>
                             <option value="welcome">👋 Welcome Email</option>
                             <option value="login_otp">🔒 Login OTP</option>
                             <option value="signup">✨ Signup Confirmation</option>
@@ -147,21 +155,13 @@
                     <button id="btnCloseSettings" class="text-gray-400 hover:text-gray-800 text-xl"><i class="fa-solid fa-xmark"></i></button>
                 </div>
                 
-                <p class="text-sm text-gray-500 mb-6 leading-relaxed">Enter your EmailJS credentials. They are securely saved in your browser's local storage and are never sent anywhere else.</p>
+                <p class="text-sm text-gray-500 mb-6 leading-relaxed">Enter your EmailJS credentials. They are securely saved in your browser's local storage.</p>
                 
                 <div class="space-y-4 mb-8">
                     <div>
                         <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Service ID</label>
                         <input type="text" id="key_service" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand focus:border-brand outline-none transition" placeholder="service_xxxxxxx">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Template ID</label>
-                        <input type="text" id="key_template" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand focus:border-brand outline-none transition" placeholder="template_xxxxxxx">
-                        <p class="text-[10px] text-gray-400 mt-1">* Ensure your EmailJS template has a variable called <b>{{{message}}}</b> (with triple braces) to render HTML properly.</p>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Public Key</label>
-                        <input type="text" id="key_public" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand focus:border-brand outline-none transition" placeholder="xxxxxxxxxxxxxxxxx">
+                        <p class="text-[10px] text-gray-400 mt-2">* Template ID and Public Key are securely configured directly in the app.js code.</p>
                     </div>
                 </div>
 
