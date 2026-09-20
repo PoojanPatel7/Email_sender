@@ -3,108 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZENITH | Pro Email Sender</title>
+    <title>Universal HTML Email Sender</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <!-- EmailJS SDK -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <!-- SMTP.js for Frontend Sending -->
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        zenith: '#000000',
-                        brand: '#3b82f6'
+                        brand: '#4f46e5',
+                        editor: '#1e1e2e'
                     }
                 }
             }
         }
     </script>
     <style>
-        /* Custom scrollbar for preview */
+        .custom-scrollbar::-webkit-scrollbar { width: 8px; height: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #2a2a35; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #4f46e5; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #6366f1; }
+        
         .preview-scroll::-webkit-scrollbar { width: 6px; }
         .preview-scroll::-webkit-scrollbar-track { background: #f1f1f1; }
         .preview-scroll::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 10px; }
-        .preview-scroll::-webkit-scrollbar-thumb:hover { background: #a8a8a8; }
         
-        /* Loading spinner */
         .spinner { border: 3px solid rgba(255,255,255,0.3); border-radius: 50%; border-top: 3px solid #fff; width: 20px; height: 20px; animation: spin 1s linear infinite; display: none; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 h-screen overflow-hidden flex flex-col font-sans">
+<body class="bg-gray-900 text-gray-100 h-screen overflow-hidden flex flex-col font-sans">
 
     <!-- Header -->
-    <header class="bg-white border-b border-gray-200 shadow-sm z-10 flex justify-between items-center px-6 py-4">
+    <header class="bg-gray-900 border-b border-gray-800 shadow-lg z-10 flex justify-between items-center px-6 py-4">
         <div class="flex items-center gap-3">
-            <div class="w-10 h-10 bg-zenith text-white rounded-lg flex items-center justify-center font-bold text-xl shadow-md"><i class="fa-solid fa-paper-plane"></i></div>
-            <h1 class="text-2xl font-black tracking-tight text-gray-900">ZENITH <span class="text-gray-400 font-medium">Mailer</span></h1>
+            <div class="w-10 h-10 bg-brand text-white rounded-lg flex items-center justify-center font-bold text-xl shadow-[0_0_15px_rgba(79,70,229,0.5)]"><i class="fa-solid fa-bolt"></i></div>
+            <h1 class="text-2xl font-black tracking-tight text-white">DirectMail <span class="text-gray-400 font-medium text-lg">Pro</span></h1>
         </div>
-        <div>
-            <button id="btnSettings" class="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-full font-semibold transition shadow-sm border border-gray-200">
-                <i class="fa-solid fa-gear"></i> Settings
-            </button>
+        <div class="flex gap-4 items-center">
+            <a href="https://myaccount.google.com/apppasswords" target="_blank" class="text-sm text-gray-400 hover:text-white transition"><i class="fa-solid fa-circle-question mr-1"></i> Get Gmail App Password</a>
         </div>
     </header>
 
     <!-- Main Workspace -->
     <main class="flex-1 flex overflow-hidden">
         
-        <!-- Left: Composer (Form) -->
-        <div class="w-full lg:w-1/2 flex flex-col h-full bg-white border-r border-gray-200 overflow-y-auto">
-            <div class="p-8 max-w-2xl w-full mx-auto flex-1">
-                <h2 class="text-xl font-bold mb-6 text-gray-800"><i class="fa-solid fa-pen-to-square text-brand mr-2"></i> Compose Email</h2>
+        <!-- Left: Configuration & Editor -->
+        <div class="w-full lg:w-1/2 flex flex-col h-full bg-editor border-r border-gray-800 overflow-y-auto custom-scrollbar">
+            <div class="p-6 lg:p-8 w-full mx-auto flex-1 flex flex-col">
                 
-                <form id="emailForm" class="space-y-5">
+                <form id="emailForm" class="flex flex-col flex-1 space-y-6">
                     
-                    <!-- To Email -->
-                    <div>
-                        <label class="block text-sm font-bold text-gray-600 mb-1">To Email Address</label>
-                        <input type="email" id="to_email" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand focus:border-brand outline-none transition" placeholder="client@example.com">
-                    </div>
-
-                    <!-- Brand Logo URL -->
-                    <div>
-                        <label class="block text-sm font-bold text-gray-600 mb-1">Brand Logo URL <span class="text-xs font-normal text-gray-400">(Auto-applied to templates)</span></label>
-                        <input type="url" id="logo_url" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand focus:border-brand outline-none transition" value="https://via.placeholder.com/250x80/000000/FFFFFF?text=ZENITH+LOGO" placeholder="https://your-domain.com/logo.png">
-                    </div>
-
-                    <!-- Subject -->
-                    <div>
-                        <label class="block text-sm font-bold text-gray-600 mb-1">Subject</label>
-                        <input type="text" id="subject" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand focus:border-brand outline-none transition" placeholder="Transform Your Digital Presence with ZENITH">
-                    </div>
-
-                    <!-- Template Selector -->
-                    <div>
-                        <label class="block text-sm font-bold text-gray-600 mb-1">Email Template</label>
-                        <select id="template_selector" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand focus:border-brand outline-none transition appearance-none cursor-pointer font-medium text-gray-700">
-                            <option value="zenith_dark">🌑 ZENITH Pro (Dark Mode)</option>
-                            <option value="zenith_pitch">🔥 ZENITH Pitch (Light)</option>
-                            <option value="newsletter">📰 Modern Newsletter</option>
-                            <option value="ecommerce">🛒 E-Commerce Receipt</option>
-                            <option value="webinar">📅 Webinar / Event Invite</option>
-                            <option value="password_reset">🔐 Password Reset</option>
-                            <option value="welcome">👋 Welcome Email</option>
-                            <option value="login_otp">🔒 Login OTP</option>
-                            <option value="signup">✨ Signup Confirmation</option>
-                            <option value="blank">📝 Blank Canvas</option>
-                        </select>
-                    </div>
-
-                    <!-- Description / Body -->
-                    <div>
-                        <div class="flex justify-between items-end mb-1">
-                            <label class="block text-sm font-bold text-gray-600">Email Body (HTML Supported)</label>
-                            <span class="text-xs text-gray-400"><i class="fa-solid fa-eye"></i> Live sync</span>
+                    <!-- SMTP Credentials Section -->
+                    <div class="bg-gray-800/50 p-5 rounded-xl border border-gray-700">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="font-bold text-gray-200"><i class="fa-solid fa-server text-brand mr-2"></i> SMTP Configuration</h3>
+                            <div class="flex items-center gap-2">
+                                <input type="checkbox" id="save_creds" class="rounded text-brand focus:ring-brand bg-gray-700 border-gray-600" checked>
+                                <label for="save_creds" class="text-xs text-gray-400 cursor-pointer">Save locally</label>
+                            </div>
                         </div>
-                        <textarea id="email_body" rows="12" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand focus:border-brand outline-none transition font-mono text-sm leading-relaxed resize-none"></textarea>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">SMTP Host</label>
+                                <input type="text" id="smtp_host" value="smtp.gmail.com" required class="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-brand focus:border-brand outline-none transition text-sm text-gray-200">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Sender Email</label>
+                                <input type="email" id="smtp_user" required class="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-brand focus:border-brand outline-none transition text-sm text-gray-200" placeholder="you@gmail.com">
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">App Password</label>
+                                <input type="password" id="smtp_pass" required class="w-full px-3 py-2 bg-gray-900 border border-gray-700 rounded-lg focus:ring-2 focus:ring-brand focus:border-brand outline-none transition text-sm text-gray-200 font-mono tracking-widest" placeholder="••••••••••••••••">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Email Details Section -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">To Email Address</label>
+                            <input type="email" id="to_email" required class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl focus:ring-2 focus:ring-brand focus:border-brand outline-none transition text-white" placeholder="client@example.com">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Subject</label>
+                            <input type="text" id="subject" required class="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl focus:ring-2 focus:ring-brand focus:border-brand outline-none transition text-white" placeholder="Amazing news inside!">
+                        </div>
+                    </div>
+
+                    <!-- HTML Editor -->
+                    <div class="flex-1 flex flex-col min-h-[300px]">
+                        <div class="flex justify-between items-end mb-2">
+                            <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider">Paste HTML Code Here</label>
+                            <span class="text-xs text-brand bg-brand/10 px-2 py-1 rounded"><i class="fa-solid fa-bolt"></i> Live Sync</span>
+                        </div>
+                        <textarea id="html_code" required class="w-full flex-1 px-4 py-3 bg-gray-900 border border-gray-700 rounded-xl focus:ring-2 focus:ring-brand focus:border-brand outline-none transition font-mono text-sm leading-relaxed resize-none text-green-400 custom-scrollbar" placeholder="<html>&#10;<body>&#10;  <h1>Hello World</h1>&#10;</body>&#10;</html>"></textarea>
                     </div>
 
                     <!-- Action -->
-                    <div class="pt-4 pb-10">
-                        <button type="submit" id="btnSend" class="w-full bg-zenith hover:bg-gray-900 text-white font-bold text-lg py-4 rounded-xl shadow-lg hover:shadow-xl transition flex justify-center items-center gap-3">
-                            <span id="btnSendText">Send Email Now</span>
+                    <div class="pt-2 pb-6">
+                        <button type="submit" id="btnSend" class="w-full bg-brand hover:bg-indigo-500 text-white font-bold text-lg py-4 rounded-xl shadow-[0_0_20px_rgba(79,70,229,0.4)] hover:shadow-[0_0_30px_rgba(79,70,229,0.6)] transition flex justify-center items-center gap-3">
+                            <span id="btnSendText">Send HTML Email</span>
                             <i id="btnSendIcon" class="fa-solid fa-paper-plane"></i>
                             <div id="btnSendSpinner" class="spinner"></div>
                         </button>
@@ -114,9 +115,9 @@
         </div>
 
         <!-- Right: Live Preview -->
-        <div class="w-full lg:w-1/2 h-full bg-gray-100 flex flex-col p-6 lg:p-10 relative">
+        <div class="w-full lg:w-1/2 h-full bg-gray-100 flex flex-col p-6 lg:p-8 relative">
             <div class="mb-4 flex justify-between items-center">
-                <h3 class="font-bold text-gray-500 uppercase tracking-widest text-sm"><i class="fa-solid fa-desktop mr-2"></i> Live Preview</h3>
+                <h3 class="font-bold text-gray-500 uppercase tracking-widest text-sm"><i class="fa-solid fa-eye mr-2"></i> HTML Preview</h3>
                 <div class="flex gap-2">
                     <div class="w-3 h-3 rounded-full bg-red-400"></div>
                     <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
@@ -124,65 +125,35 @@
                 </div>
             </div>
             
-            <!-- Mac/Email Client Window Mockup -->
-            <div class="flex-1 bg-white rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] border border-gray-200 flex flex-col overflow-hidden">
+            <!-- Email Window Mockup -->
+            <div class="flex-1 bg-white rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.1)] border border-gray-300 flex flex-col overflow-hidden">
                 <!-- Email Headers -->
-                <div class="bg-gray-50 border-b border-gray-100 p-4 space-y-2">
+                <div class="bg-gray-50 border-b border-gray-200 p-4 space-y-2">
                     <div class="flex text-sm">
                         <span class="w-16 font-bold text-gray-400">To:</span>
                         <span id="preview_to" class="text-gray-800 font-medium">client@example.com</span>
                     </div>
                     <div class="flex text-sm">
                         <span class="w-16 font-bold text-gray-400">Subject:</span>
-                        <span id="preview_subject" class="text-gray-900 font-bold">Transform Your Digital Presence with ZENITH</span>
+                        <span id="preview_subject" class="text-gray-900 font-bold">Amazing news inside!</span>
                     </div>
                 </div>
-                <!-- Email Content Area -->
-                <div class="flex-1 overflow-y-auto preview-scroll bg-white p-8">
-                    <!-- The raw HTML will be injected here safely -->
-                    <div id="preview_body" class="w-full max-w-[600px] mx-auto"></div>
+                <!-- Email Content Area (Iframe for perfectly isolated CSS/HTML rendering) -->
+                <div class="flex-1 overflow-hidden bg-white p-0 relative">
+                    <iframe id="preview_frame" class="w-full h-full border-none"></iframe>
+                    
+                    <!-- Empty State -->
+                    <div id="empty_state" class="absolute inset-0 flex flex-col items-center justify-center text-gray-300 pointer-events-none">
+                        <i class="fa-solid fa-code text-6xl mb-4 opacity-50"></i>
+                        <p class="font-medium text-lg">Paste HTML to see preview</p>
+                    </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- Settings Modal (EmailJS Keys) -->
-    <div id="settingsModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 hidden opacity-0 transition-opacity duration-300">
-        <div class="bg-white rounded-3xl w-full max-w-md shadow-2xl transform scale-95 transition-transform duration-300 border border-gray-100 overflow-hidden" id="settingsBox">
-            <div class="p-8">
-                <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-2xl font-black text-gray-900"><i class="fa-solid fa-key text-yellow-500 mr-2"></i> Setup API Keys</h2>
-                    <button id="btnCloseSettings" class="text-gray-400 hover:text-gray-800 text-xl"><i class="fa-solid fa-xmark"></i></button>
-                </div>
-                
-                <p class="text-sm text-gray-500 mb-6 leading-relaxed">Enter your EmailJS credentials. They are securely saved in your browser's local storage.</p>
-                
-                <div class="space-y-4 mb-8">
-                    <div>
-                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Service ID</label>
-                        <input type="text" id="key_service" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand focus:border-brand outline-none transition" placeholder="service_xxxxxxx">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Template ID</label>
-                        <input type="text" id="key_template" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand focus:border-brand outline-none transition" placeholder="template_xxxxxxx">
-                        <p class="text-[10px] text-gray-400 mt-1">* Ensure your EmailJS template has <b>{{{message}}}</b> (with triple braces) configured.</p>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Public Key</label>
-                        <input type="text" id="key_public" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand focus:border-brand outline-none transition" placeholder="xxxxxxxxxxxxxxxxx">
-                    </div>
-                </div>
-
-                <div class="flex gap-3">
-                    <button id="btnSaveKeys" class="flex-1 bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-xl transition shadow-md hover:shadow-lg">Save & Connect</button>
-                    <button id="btnDeleteKeys" class="px-5 bg-red-50 hover:bg-red-100 text-red-600 font-bold rounded-xl transition border border-red-100 hidden" title="Delete Saved Keys"><i class="fa-solid fa-trash"></i></button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Notification Toast -->
-    <div id="toast" class="fixed bottom-5 right-5 bg-gray-900 text-white px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 transform translate-y-20 opacity-0 transition-all duration-300 z-50">
+    <div id="toast" class="fixed bottom-5 right-5 bg-gray-800 text-white px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 transform translate-y-24 opacity-0 transition-all duration-300 z-50 border border-gray-700">
         <i id="toastIcon" class="fa-solid fa-circle-check text-green-400 text-xl"></i>
         <span id="toastMessage" class="font-medium">Success!</span>
     </div>
