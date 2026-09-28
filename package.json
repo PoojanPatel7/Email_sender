@@ -1,0 +1,8 @@
+{
+  "name": "directmail-pro",
+  "version": "1.0.0",
+  "description": "HTML Email Sender using Vercel Serverless Functions",
+  "dependencies": {
+    "nodemailer": "^6.9.13"
+  }
+}

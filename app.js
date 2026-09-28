@@ -89,26 +89,31 @@ form.addEventListener('submit', function(e) {
     btnIcon.style.display = 'none';
     btnSpinner.style.display = 'block';
 
-    // 4. Execute SMTP.js request
-    Email.send({
-        Host: h,
-        Username: u,
-        Password: p,
-        To: to,
-        From: u, // Standard practice to send from the authenticated user
-        Subject: sub,
-        Body: body
-    }).then(
-        message => {
-            if (message === "OK") {
-                showToast("HTML Email Delivered Successfully!");
-            } else {
-                showToast("SMTP Error: " + message, "error");
-            }
+    // 4. Execute API request directly to our Vercel Serverless Function
+    fetch('/api/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            host: h,
+            user: u,
+            pass: p,
+            to: to,
+            subject: sub,
+            html: body
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showToast("HTML Email Delivered Successfully!");
+        } else {
+            showToast("Error: " + data.message, "error");
         }
-    ).catch(err => {
-        showToast("Connection Error: " + err, "error");
-    }).finally(() => {
+    })
+    .catch(err => {
+        showToast("Connection Error: " + err.message, "error");
+    })
+    .finally(() => {
         // Restore UI
         btn.disabled = false;
         btnText.textContent = "Send HTML Email";
